@@ -1,0 +1,759 @@
+/* =====================================
+   1. НЕГІЗГІ БАПТАУЛАР
+===================================== */
+
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+:root {
+   --pink-bg: #fff1f5;
+   --pink-light: #ffe1eb;
+   --pink-medium: #f8bfd0;
+   --pink-dark: #d98da5;
+
+   --red: #d85c78;
+   --red-dark: #b94b68;
+
+   --paper: #fffaf5;
+   --text: #815a69;
+}
+
+body {
+   min-height: 100vh;
+   overflow: hidden;
+
+   font-family: "Lora", serif;
+
+   background:
+      radial-gradient(circle at 20% 20%,
+         #fffafc 0%,
+         transparent 35%),
+      radial-gradient(circle at 80% 80%,
+         #f9d9e5 0%,
+         transparent 40%),
+      linear-gradient(135deg,
+         #fff1f5,
+         #fce3ec,
+         #fff4f6);
+
+   color: var(--text);
+}
+
+
+/* =====================================
+   2. НЕГІЗГІ ЭКРАН
+===================================== */
+
+.scene {
+   width: 100%;
+   min-height: 100vh;
+
+   display: flex;
+   flex-direction: column;
+
+   justify-content: center;
+   align-items: center;
+
+   position: relative;
+
+   padding: 30px 20px;
+
+   isolation: isolate;
+}
+
+
+/* =====================================
+   3. ТАҚЫРЫП
+===================================== */
+
+.heading {
+   text-align: center;
+
+   position: relative;
+   z-index: 2;
+
+   margin-bottom: 75px;
+
+   animation: fadeDown 1.4s ease both;
+}
+
+.small-title {
+   font-family: "Lora", serif;
+
+   font-size: 11px;
+   letter-spacing: 4px;
+
+   color: #c18a9d;
+
+   margin-bottom: 22px;
+}
+
+.heading h1 {
+   font-family: "Lora", serif;
+
+   font-size: clamp(32px, 6vw, 57px);
+
+   font-weight: 400;
+
+   color: #a96880;
+
+   line-height: 1.3;
+
+   text-shadow:
+      0 3px 20px rgba(191, 119, 147, 0.12);
+}
+
+.title-decoration {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   gap: 12px;
+
+   margin-top: 20px;
+}
+
+.title-decoration span:not(.tiny-heart) {
+   width: 55px;
+   height: 1px;
+
+   background: #e6aabc;
+}
+
+.tiny-heart {
+   font-size: 20px;
+   color: #d88ba4;
+}
+
+
+/* =====================================
+   4. КОНВЕРТТІҢ ОРНЫ
+===================================== */
+
+.envelope-area {
+   position: relative;
+
+   display: flex;
+   justify-content: center;
+   align-items: center;
+
+   perspective: 1200px;
+
+   z-index: 2;
+}
+
+.envelope {
+   width: 310px;
+   height: 205px;
+
+   position: relative;
+
+   transform-style: preserve-3d;
+
+   filter:
+      drop-shadow(0 25px 35px rgba(176, 104, 130, 0.18));
+
+   transition:
+      transform 1s ease,
+      filter 1s ease;
+}
+
+
+/* =====================================
+   5. КОНВЕРТТІҢ АРТҚЫ БӨЛІГІ
+===================================== */
+
+.envelope-back {
+   position: absolute;
+
+   inset: 0;
+
+   background: linear-gradient(145deg,
+         #f9cfdd,
+         #efb4c8);
+
+   border-radius: 5px;
+
+   z-index: 1;
+}
+
+
+/* =====================================
+   6. КОНВЕРТТІҢ АЛДЫҢҒЫ БӨЛІГІ
+===================================== */
+
+.envelope-front {
+   position: absolute;
+
+   inset: 0;
+
+   background: linear-gradient(145deg,
+         #f7c8d8,
+         #eeb2c5);
+
+   clip-path: polygon(0 0,
+         50% 58%,
+         100% 0,
+         100% 100%,
+         0 100%);
+
+   border-radius: 5px;
+
+   z-index: 4;
+}
+
+
+/* =====================================
+   7. КОНВЕРТТІҢ ҚАҚПАҒЫ
+===================================== */
+
+.envelope-flap {
+   position: absolute;
+
+   top: 0;
+   left: 0;
+
+   width: 100%;
+   height: 100%;
+
+   background: linear-gradient(145deg,
+         #fbd9e4,
+         #f3bfd0);
+
+   clip-path: polygon(0 0,
+         100% 0,
+         50% 58%);
+
+   transform-origin: top center;
+
+   transform: rotateX(0deg);
+
+   backface-visibility: visible;
+
+   z-index: 5;
+
+   transition:
+      transform 1s cubic-bezier(0.65, 0, 0.35, 1);
+
+}
+
+
+/* =====================================
+   8. ХАТ
+===================================== */
+
+.letter {
+   position: absolute;
+
+   width: 88%;
+   height: 90%;
+
+   left: 6%;
+   bottom: 5%;
+
+   background: var(--paper);
+
+   border: 1px solid #f3dce3;
+
+   border-radius: 4px;
+
+   z-index: 2;
+
+   overflow: hidden;
+
+   transform: translateY(0) scale(1);
+
+   opacity: 1;
+
+   box-shadow:
+      0 5px 18px rgba(170, 111, 132, 0.08);
+
+   transition:
+      transform 1.4s cubic-bezier(0.22, 1, 0.36, 1),
+      width 1.4s ease,
+      height 1.4s ease,
+      left 1.4s ease,
+      bottom 1.4s ease,
+      opacity 0.5s ease;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.letter-content {
+   width: 100%;
+
+   padding: 18px;
+
+   text-align: center;
+
+   opacity: 0;
+
+   transform: translateY(15px);
+
+   transition:
+      opacity 0.8s ease,
+      transform 0.8s ease;
+}
+
+.letter-heart {
+   font-size: 28px;
+
+   color: #d98ba3;
+
+   margin-bottom: 12px;
+}
+
+.letter-text {
+   font-family: "Lora", serif;
+
+   font-size: 17px;
+
+   line-height: 1.8;
+
+   color: #956c7b;
+}
+
+.second-line {
+   margin-top: 12px;
+}
+
+.letter-decoration {
+   font-size: 22px;
+
+   color: #d99caf;
+
+   margin-top: 15px;
+}
+
+.letter-signature {
+   font-family: "Lora", serif;
+
+   font-size: 15px;
+
+   font-style: italic;
+
+   color: #bb8b9b;
+
+   margin-top: 12px;
+}
+
+
+/* =====================================
+   9. ҚЫЗЫЛ БАТЫРМА
+===================================== */
+
+.open-button {
+   position: absolute;
+
+   top: 50%;
+   left: 50%;
+
+   transform: translate(-50%, -50%);
+
+   width: 82px;
+   height: 82px;
+
+   border: 2px solid rgba(255, 255, 255, 0.7);
+
+   border-radius: 50%;
+
+   background: linear-gradient(145deg,
+         #e77e98,
+         #cf5576);
+
+   color: white;
+
+   font-family: "Lora", serif;
+
+   font-size: 17px;
+
+   cursor: pointer;
+
+   z-index: 10;
+
+   box-shadow:
+      0 0 0 8px rgba(255, 255, 255, 0.25),
+      0 8px 25px rgba(187, 82, 116, 0.3);
+
+   transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease,
+      opacity 0.5s ease;
+}
+
+.open-button span {
+   display: block;
+}
+
+.open-button:hover {
+   transform: translate(-50%, -50%) scale(1.1);
+
+   box-shadow:
+      0 0 0 12px rgba(255, 255, 255, 0.3),
+      0 12px 30px rgba(187, 82, 116, 0.35);
+}
+
+.open-button:active {
+   transform: translate(-50%, -50%) scale(0.94);
+}
+
+
+/* =====================================
+   10. АШЫЛУ АНИМАЦИЯСЫ
+===================================== */
+
+/* Конверттің қақпағы ашылады */
+
+.envelope.opened .envelope-flap {
+   transform: rotateX(180deg);
+
+   z-index: 1;
+}
+
+/* Хат жоғары көтеріледі */
+
+.envelope.opened .letter {
+   transform: translateY(-105px) scale(1.02);
+
+   z-index: 6;
+}
+
+/* Батырма жоғалады */
+
+.envelope.opened .open-button {
+   opacity: 0;
+
+   pointer-events: none;
+
+   transform:
+      translate(-50%, -50%) scale(0.4);
+}
+
+
+/* =====================================
+   11. ХАТТЫҢ ЖАҚЫНДАУЫ
+===================================== */
+
+.envelope.zoomed {
+   transform: scale(1.15) translateY(-10px);
+
+   filter:
+      drop-shadow(0 35px 50px rgba(176, 104, 130, 0.25));
+}
+
+.envelope.zoomed .letter {
+   position: fixed;
+
+   width: min(88vw, 520px);
+
+   height: min(75vh, 620px);
+
+   max-height: 620px;
+
+   left: 50%;
+   top: 50%;
+   bottom: auto;
+
+   transform:
+      translate(-50%, -50%) scale(1);
+
+   z-index: 20;
+
+   padding: 20px;
+
+   overflow: auto;
+
+   border-radius: 8px;
+
+   box-shadow:
+      0 25px 100px rgba(135, 77, 99, 0.25);
+}
+
+.envelope.zoomed .letter-content {
+   opacity: 1;
+
+   transform: translateY(0);
+
+   transition-delay: 0.45s;
+}
+
+
+/* Конверт көмескіленеді */
+
+.envelope.zoomed .envelope-back,
+.envelope.zoomed .envelope-front,
+.envelope.zoomed .envelope-flap {
+   opacity: 0;
+
+   transition: opacity 0.5s ease;
+}
+
+
+/* =====================================
+   12. ТӨМЕНГІ ЖАЗУ
+===================================== */
+
+.footer {
+   margin-top: 75px;
+
+   text-align: center;
+
+   color: #c18da0;
+
+   font-family: "Lora", serif;
+
+   font-size: 19px;
+
+   letter-spacing: 1px;
+
+   animation: fadeUp 1.6s ease both;
+}
+
+
+/* =====================================
+   13. ҚАЙТА ОҚУ БАТЫРМАСЫ
+===================================== */
+
+.replay-button {
+   position: fixed;
+
+   bottom: 25px;
+   left: 50%;
+
+   transform: translateX(-50%);
+
+   padding: 10px 25px;
+
+   border: 1px solid #e9b9c8;
+
+   border-radius: 30px;
+
+   background: rgba(255, 255, 255, 0.55);
+
+   color: #ad7186;
+
+   font-family: "Lora", serif;
+
+   font-size: 16px;
+
+   cursor: pointer;
+
+   opacity: 0;
+
+   pointer-events: none;
+
+   transition:
+      opacity 0.5s ease,
+      background 0.3s ease;
+
+   z-index: 30;
+}
+
+.replay-button.visible {
+   opacity: 1;
+
+   pointer-events: auto;
+}
+
+.replay-button:hover {
+   background: white;
+}
+
+
+/* =====================================
+   14. ФОНДАҒЫ ӘШЕКЕЙЛЕР
+===================================== */
+
+.sparkle {
+   position: absolute;
+
+   color: rgba(205, 137, 160, 0.5);
+
+   font-size: 28px;
+
+   pointer-events: none;
+
+   animation: float 5s ease-in-out infinite;
+}
+
+.sparkle-1 {
+   top: 18%;
+   left: 15%;
+
+   animation-delay: 0s;
+}
+
+.sparkle-2 {
+   top: 28%;
+   right: 17%;
+
+   font-size: 35px;
+
+   animation-delay: 1s;
+}
+
+.sparkle-3 {
+   bottom: 20%;
+   left: 22%;
+
+   animation-delay: 2s;
+}
+
+.sparkle-4 {
+   bottom: 30%;
+   right: 20%;
+
+   font-size: 22px;
+
+   animation-delay: 1.5s;
+}
+
+
+/* =====================================
+   15. ЖАЛПЫ АНИМАЦИЯЛАР
+===================================== */
+
+@keyframes float {
+
+   0%,
+   100% {
+      transform: translateY(0) rotate(0deg);
+   }
+
+   50% {
+      transform: translateY(-15px) rotate(10deg);
+   }
+}
+
+@keyframes fadeDown {
+   from {
+      opacity: 0;
+
+      transform: translateY(-25px);
+   }
+
+   to {
+      opacity: 1;
+
+      transform: translateY(0);
+   }
+}
+
+@keyframes fadeUp {
+   from {
+      opacity: 0;
+
+      transform: translateY(25px);
+   }
+
+   to {
+      opacity: 1;
+
+      transform: translateY(0);
+   }
+}
+
+
+/* =====================================
+   16. ТЕЛЕФОНҒА БЕЙІМДЕУ
+===================================== */
+
+@media (max-width: 600px) {
+
+   .scene {
+      padding: 20px 15px;
+   }
+
+   .heading {
+      margin-bottom: 65px;
+   }
+
+   .small-title {
+      font-size: 9px;
+
+      letter-spacing: 3px;
+   }
+
+   .heading h1 {
+      font-size: clamp(27px, 7.5vw, 38px);
+
+      line-height: 1.4;
+   }
+
+   .envelope {
+      width: min(310px, 82vw);
+
+      height: min(205px, 54vw);
+   }
+
+   .envelope.zoomed .letter {
+      width: 90vw;
+
+      height: min(75dvh, 620px);
+
+      padding: 16px;
+   }
+
+   .letter-text {
+      font-size: clamp(15px, 4vw, 18px);
+
+      line-height: 1.8;
+
+      overflow-wrap: break-word;
+   }
+
+   .letter-content {
+      padding: 10px;
+   }
+
+   .letter-heart {
+      font-size: 24px;
+
+      margin-bottom: 8px;
+   }
+
+   .footer {
+      margin-top: 65px;
+
+      font-size: 17px;
+   }
+
+   .sparkle-1 {
+      left: 8%;
+   }
+
+   .sparkle-2 {
+      right: 8%;
+   }
+
+   .sparkle-3 {
+      left: 10%;
+   }
+
+   .sparkle-4 {
+      right: 10%;
+   }
+}
+
+
+/* =====================================
+   17. ҚОЗҒАЛЫСТЫ АЗАЙТУ ҚАЛАУЫ
+===================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+   *,
+   *::before,
+   *::after {
+      animation-duration: 0.01ms !important;
+
+      animation-iteration-count: 1 !important;
+
+      transition-duration: 0.01ms !important;
+   }
+}
